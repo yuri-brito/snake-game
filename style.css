@@ -1,0 +1,45 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center ;
+    align-items: center;
+    height: 100vh; /*medida relativa, 100% da altura da tela do usuário*/
+    width: 100vw;
+    overflow: hidden;
+}
+
+table{
+    width:70%;
+    height: 80%;
+    border: 1px solid red;
+}
+
+td { 
+    /* border: 1px solid black; */
+    margin: 0;
+    padding-left: 0;
+    
+  }
+
+p{
+    background: linear-gradient(180deg, darkgreen 0%,  white 100%);
+    background-image: url("./fundo_cobra.png");
+    border-radius: 30%;
+    /* border: 1px solid ; */
+    
+    margin: 0;
+    
+  
+    
+}
+
+
+#cab{
+    display: block;
+    margin-inline:15%;
+    width: 70%;
+    
+}
+
+
+
