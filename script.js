@@ -35,7 +35,8 @@ function gerarRadom(){
     let randomLin=Math.floor(Math.random()*(ln-1))
     let fruta=document.createElement('img')
     fruta.setAttribute('src',frutas[randomFruit].arquivo)
-    fruta.setAttribute('style','display: block;margin: auto;position: absolute;top: 0; bottom: 0;left: 0;right: 0;width: 150%; ')
+    fruta.setAttribute('style','display: block;margin: auto;position: absolute;top: 0; bottom: 0;left: 0;right: 0;width: 200%; ')
+    fruta.setAttribute('id','fruta')
     let celulaFruta=document.getElementById([randomLin,randomCol])
     celulaFruta.appendChild(fruta)
     return [randomLin,randomCol]
@@ -255,8 +256,12 @@ class Cobra{
             }
         }          
         }    
-    comer(){
+    async comer(){
+        await sleep(10)
         posFruta=gerarRadom()
+        if (document.getElementById('fruta')===null){
+            this.comer()
+        }
         totalScore+=10
         this.vel=this.vel*0.95
         document.getElementById('scoreAtual').innerHTML=totalScore
