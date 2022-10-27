@@ -1,23 +1,56 @@
+const frutas=[
+    {'arquivo':'./imgFrutas/pngwing.com (10).png'},
+    {'arquivo':'./imgFrutas/pngwing.com (9).png'},
+    {'arquivo':'./imgFrutas/pngwing.com (8).png'},
+    {'arquivo':'./imgFrutas/pngwing.com (7).png'},
+    {'arquivo':'./imgFrutas/pngwing.com (6).png'},
+    {'arquivo':'./imgFrutas/pngwing.com (5).png'},
+    {'arquivo':'./imgFrutas/pngwing.com (4).png'},
+    {'arquivo':'./imgFrutas/pngwing.com (3).png'},
+    {'arquivo':'./imgFrutas/pngwing.com (2).png'},
+    {'arquivo':'./imgFrutas/pngwing.com (1).png'},
+    {'arquivo':'./imgFrutas/pngwing.com.png'},
+
+]
+let totalScore=0
 const table=document.getElementsByTagName('table')[0]
 
-const ln=20
-const cl=40
+const ln=40
+const cl=80
 for (let lin = 0; lin < ln ; lin++){
     let linha=document.createElement('tr')
     for (let col = 0; col < cl ; col ++ ){
         let celula=document.createElement('td')
         celula.setAttribute('id',`${lin},${col}`)
-        celula.setAttribute('width',`2.5%`)
-        celula.setAttribute('height',`5%`)
+        celula.setAttribute('width',`1.25%`)
+        celula.setAttribute('height',`2.5%`)
         linha.appendChild(celula)
     }
     table.appendChild(linha)
 }
 
+function gerarRadom(){
+    let randomFruit=Math.floor(Math.random()*frutas.length)
+    let randomCol=Math.floor(Math.random()*(cl-1))
+    let randomLin=Math.floor(Math.random()*(ln-1))
+    let fruta=document.createElement('img')
+    fruta.setAttribute('src',frutas[randomFruit].arquivo)
+    fruta.setAttribute('style','display: block;margin: auto;position: absolute;top: 0; bottom: 0;left: 0;right: 0;width: 150%; ')
+    let celulaFruta=document.getElementById([randomLin,randomCol])
+    celulaFruta.appendChild(fruta)
+    return [randomLin,randomCol]
+}
 
+let posFruta=gerarRadom()
+
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+ }
 
 class Cobra{
     constructor(){
+        
         this.cabeca=document.createElement('img')
         this.cabeca.setAttribute('src',"./cobra.png")
         this.cabeca.setAttribute('id',"cab")
@@ -38,34 +71,39 @@ class Cobra{
         } 
         for (let el = 1; el < tamanho ; el++){
             if (orientacao==='leste'){
-                let gomos=document.createElement('div')
-                let bola=document.createElement('p')
-                bola.setAttribute('style','width:110%;height: 110%;')
+                let bola=document.createElement('img')
+                //bola.setAttribute('style','width:80%;border-radius: 50%;')
+                bola.setAttribute('src',"./fundo_cobra.png")
                 bola.setAttribute('id',el)
-                gomos.setAttribute('style','display:flex')
-                
+                bola.setAttribute('class','bola')
                 this.corpo.push(bola)
                 let celulaBola=document.getElementById([posicao[0],posicao[1]-el])
                 celulaBola.appendChild(bola)
             } else if (orientacao==='oeste'){
-                let bola=document.createElement('p')
-                bola.setAttribute('style','width:130%;height: 50%;')
+                let bola=document.createElement('img')
+                //bola.setAttribute('style','width:80%;border-radius: 50%;')
+                bola.setAttribute('src',"./fundo_cobra.png")
                 bola.setAttribute('id',el)
+                bola.setAttribute('class','bola')
                 this.corpo.push(bola)
                 let celulaBola=document.getElementById([posicao[0],posicao[1]+el])
                 celulaBola.appendChild(bola)
             } else if(orientacao==='norte'){
                 
-                let bola=document.createElement('p')
-                bola.setAttribute('style','margin-left: 25%;width:50%;height: 130%;')
+                let bola=document.createElement('img')
+                //bola.setAttribute('style','width:80%;border-radius: 50%;')
+                bola.setAttribute('src',"./fundo_cobra.png")
                 bola.setAttribute('id',el)
+                bola.setAttribute('class','bola')
                 this.corpo.push(bola)
                 let celulaBola=document.getElementById([posicao[0]+el,posicao[1]])
                 celulaBola.appendChild(bola)
             }  else{
-                let bola=document.createElement('p')
-                bola.setAttribute('style','margin-left: 25%;width:50%;height: 130%;')
+                let bola=document.createElement('img')
+                //bola.setAttribute('style','width:80%;border-radius: 50%;')
+                bola.setAttribute('src',"./fundo_cobra.png")
                 bola.setAttribute('id',el)
+                bola.setAttribute('class','bola')
                 this.corpo.push(bola)
                 let celulaBola=document.getElementById([posicao[0]-el,posicao[1]])
                 celulaBola.appendChild(bola)
@@ -74,75 +112,78 @@ class Cobra{
         
         
     }
-    mudarDirecao(posicaoConversao,orientacaoAntiga,orientacao){
-        
+    async mudarDirecao(posicaoConversao,orientacaoAntiga,orientacao){
+        await sleep(this.vel)
         if(orientacaoAntiga==='leste' ){
             if(orientacao==='norte'){
 
                  this.cabeca.setAttribute('style','transform:rotate(180deg)')
-                // let tamanho=this.corpo.length
-                clearInterval(intervalId)
-                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)
+                
+                 clearInterval(intervalId)
+                 intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)
             } else{
 
                  this.cabeca.setAttribute('style','')
-                // let tamanho=this.corpo.length
-                clearInterval(intervalId)
-                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)
+                
+                 clearInterval(intervalId)
+                 intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)
             }
 
         }else if(orientacaoAntiga==='oeste'){
             if(orientacao==='norte'){
                 this.cabeca.setAttribute('style','transform:rotate(180deg)')
-                let tamanho=this.corpo.length
+                
                 clearInterval(intervalId)
-                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao='norte', tamanho=tamanho)},this.vel)
+                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)
 
             }else{
                 this.cabeca.setAttribute('style','')
                 let tamanho=this.corpo.length
                 clearInterval(intervalId)
-                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao='sul', tamanho=tamanho)},this.vel)
+                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)
 
             }
         } else if(orientacaoAntiga==='norte'){
             if(orientacao==='leste'){
 
                 this.cabeca.setAttribute('style','transform:rotate(270deg)')
-                let tamanho=this.corpo.length
                 clearInterval(intervalId)
-                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao='leste', tamanho=tamanho)},this.vel)
+                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)
             }else{
 
                 this.cabeca.setAttribute('style','transform:rotate(90deg)')
-                let tamanho=this.corpo.length
                 clearInterval(intervalId)
-                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao='oeste', tamanho=tamanho)},this.vel)
+                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)
             }
 
         } else if(orientacaoAntiga==='sul'){
             if(orientacao==='leste'){
                 this.cabeca.setAttribute('style','transform:rotate(270deg)')
-                let tamanho=this.corpo.length
                 clearInterval(intervalId)
-                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao='leste', tamanho=tamanho)},this.vel)
+                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)
 
             }else {
                 this.cabeca.setAttribute('style','transform:rotate(90deg)')
-                let tamanho=this.corpo.length
+                
                 clearInterval(intervalId)
-                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao='oeste', tamanho=tamanho)},this.vel)
+                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)  
+                
                 
             }
         }
 
     }
     correr(posicaoConversao, orientacao, orientacaoAntiga){
-        
+        try {
+            let posicaoAntiga=[...cobra.cabeca.parentElement.id.split(',')].map(Number)
+        } catch (error) {
+            console.log(error)
+            this.morrer()           
+        }
         let posicaoAntiga=[...cobra.cabeca.parentElement.id.split(',')].map(Number)
         if (orientacao==='leste'){
             let novo=0
-            if (posicaoAntiga[1]+1>=40){
+            if (posicaoAntiga[1]+1>=cl){
                 novo=0
             }else{
                 novo=posicaoAntiga[1]+1
@@ -152,11 +193,10 @@ class Cobra{
             celulaCabeca.appendChild(this.cabeca)
             
             
-        
         } else if (orientacao==='oeste'){
             let novo=0
             if (posicaoAntiga[1]-1<0){
-                novo=39
+                novo=cl-1
             }else{
                 novo=posicaoAntiga[1]-1
             }
@@ -167,7 +207,7 @@ class Cobra{
         } else if(orientacao==='norte'){
             let novo=0
             if (posicaoAntiga[0]-1<0){
-                novo=19
+                novo=ln-1
             }else{
                 novo=posicaoAntiga[0]-1
             }
@@ -177,7 +217,7 @@ class Cobra{
             
         }  else{
             let novo=0
-            if (posicaoAntiga[0]+1>19){
+            if (posicaoAntiga[0]+1>ln-1){
                 novo=0
             }else{
                 novo=posicaoAntiga[0]+1
@@ -187,55 +227,54 @@ class Cobra{
             celulaCabeca.appendChild(this.cabeca)
               
         }
+        let comeu=false
+        if (JSON.stringify([...cobra.cabeca.parentElement.id.split(',')].map(Number))===JSON.stringify(posFruta)){
+            comeu=true
+            this.comer()
+        }
         let posicaoGomoAnterior=[]
         let styleAnterior=''
         for (let gomo of this.corpo){
             let posicaoGomo=[...gomo.parentElement.id.split(',')].map(Number)
             let style=gomo.getAttribute('style')
             if(this.corpo.indexOf(gomo)===0){
-                if (this.cabeca.getAttribute('style')==='transform:rotate(270deg)' ||this.cabeca.getAttribute('style')==='transform:rotate(90deg)'){
-                    
-                    document.getElementById(posicaoGomo).innerHTML=''
-                    gomo.setAttribute('style','width:110%;height: 110%;')
-                    let celulaGomo=document.getElementById(posicaoAntiga)
-                    celulaGomo.appendChild(gomo)
-                    
-                } else{
-                    
-                    document.getElementById(posicaoGomo).innerHTML=''
-                    gomo.setAttribute('style','width:110%;height: 110%;')
-                    let celulaGomo=document.getElementById(posicaoAntiga)
-                    celulaGomo.appendChild(gomo)
-                }
+                
+                document.getElementById(posicaoGomo).innerHTML=''
+                let celulaGomo=document.getElementById(posicaoAntiga)
+                celulaGomo.appendChild(gomo) 
+                
             }else{
-                if(this.corpo[this.corpo.indexOf(gomo)-1].getAttribute('style')==='width:130%;height: 50%;'){
-                    
-                    document.getElementById(posicaoGomo).innerHTML=''
-                    gomo.setAttribute('style',styleAnterior)
-
-                    let celulaGomo=document.getElementById(posicaoGomoAnterior)
-                    celulaGomo.appendChild(gomo)
-                }else{
-                    
-                    document.getElementById(posicaoGomo).innerHTML=''
-                    gomo.setAttribute('style',styleAnterior)
-                    let celulaGomo=document.getElementById(posicaoGomoAnterior)
-                    celulaGomo.appendChild(gomo)
-
-                }
-
+                document.getElementById(posicaoGomo).innerHTML=''
+                let celulaGomo=document.getElementById(posicaoGomoAnterior)
+                celulaGomo.appendChild(gomo)
             }
-            
             posicaoGomoAnterior=posicaoGomo
             styleAnterior=style
-                
+            if (this.corpo.indexOf(gomo)===this.corpo.length-1 && comeu){
+                this.crescer(posicaoGomo)
             }
-
-            
-        }   
-    
+        }          
+        }    
     comer(){
+        posFruta=gerarRadom()
+        totalScore+=10
+        this.vel=this.vel*0.95
+        document.getElementById('scoreAtual').innerHTML=totalScore
+        
+    }
+    async crescer(posicao){
+        await sleep(10)
+        let bola=document.createElement('img')
+        bola.setAttribute('src',"./fundo_cobra.png")
+        bola.setAttribute('class','bola')
+        this.corpo.push(bola)
+        let celulaBola=document.getElementById(posicao)
+        celulaBola.appendChild(bola)
 
+    }
+    morrer(){
+        clearInterval(intervalId)
+        location.reload()
     }
 }
 
