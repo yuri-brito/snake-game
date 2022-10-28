@@ -1,3 +1,49 @@
+function width(){
+    return window.innerWidth 
+        || document.documentElement.clientWidth 
+        || document.body.clientWidth 
+        || 0;
+ }
+ 
+ function height(){
+    return window.innerHeight 
+        || document.documentElement.clientHeight 
+        || document.body.clientHeight 
+        || 0;
+ }
+ 
+background=document.getElementsByClassName('demo-bg')[0]
+background.setAttribute('style',`width:${width()}px;height: ${height()}px`)
+body=document.getElementsByTagName('body')[0]
+body.setAttribute('style',`width:${width()}px;height: ${height()}px`)
+//headerPrimeiro=document.getElementsByTagName('header')[0]
+botaoPrimeiro=document.getElementById('botaoInicial')
+botaoPrimeiro.setAttribute('style',`width:${width()*0.2}px;height:${Math.floor(height()*0.15)}px;left:${width()*0.4}px;top:${height()*0.1}px`)
+
+window.onresize=(event)=>{
+    if (botaoPrimeiro.getAttribute('style')==='visibility:hidden;'){
+
+        body.setAttribute('style',`width:${width()}px;height: ${height()}px`)
+        background.setAttribute('style',`width:${width()}px;height: ${height()}px;opacity:0.1;position: absolute; z-index: 0;`)
+        
+    }else{
+        body.setAttribute('style',`width:${width()}px;height: ${height()}px`)
+        background.setAttribute('style',`width:${width()}px;height: ${height()}px`)
+        botaoPrimeiro.setAttribute('style',`width:${width()*0.2}px;height:${Math.floor(height()*0.2)}px;left:${width()*0.4}px;top:${height()*0.1}px`)
+    }
+    
+}
+
+botaoPrimeiro.addEventListener('click',(event)=>{
+    event.currentTarget.setAttribute('style',"visibility:hidden;")
+    document.getElementsByTagName('main')[0].setAttribute('style',"visibility:visible;")
+    body.setAttribute('style',`width:${width()}px;height: ${height()}px`)
+    background.setAttribute('style',`width:${width()}px;height: ${height()}px;opacity:0.1;position: absolute; z-index: 0;`)
+
+})
+
+
+
 const frutas=[
     {'arquivo':'./imgFrutas/pngwing.com (10).png'},
     {'arquivo':'./imgFrutas/pngwing.com (9).png'},
@@ -12,9 +58,12 @@ const frutas=[
     {'arquivo':'./imgFrutas/pngwing.com.png'},
 
 ]
-let totalScore=0
-const table=document.getElementsByTagName('table')[0]
 
+
+
+let totalScore=0
+
+const table=document.getElementsByTagName('table')[0]
 const ln=40
 const cl=80
 for (let lin = 0; lin < ln ; lin++){
@@ -24,6 +73,11 @@ for (let lin = 0; lin < ln ; lin++){
         celula.setAttribute('id',`${lin},${col}`)
         celula.setAttribute('width',`1.25%`)
         celula.setAttribute('height',`2.5%`)
+        if ((lin+col)%2===0){
+            //celula.setAttribute('style',`background:rgb(255, 255, 255)`)
+        }else{
+            //celula.setAttribute('style',`background:rgb(224, 249, 224);`)
+        }
         linha.appendChild(celula)
     }
     table.appendChild(linha)
@@ -35,258 +89,83 @@ function gerarRadom(){
     let randomLin=Math.floor(Math.random()*(ln-1))
     let fruta=document.createElement('img')
     fruta.setAttribute('src',frutas[randomFruit].arquivo)
-    fruta.setAttribute('style','display: block;margin: auto;position: absolute;top: 0; bottom: 0;left: 0;right: 0;width: 200%; ')
+    fruta.setAttribute('style','display: block;margin: auto;position: absolute;top: 0; bottom: 0;left: 0;right: 0;width: 200%;z-index: 2; ')
     fruta.setAttribute('id','fruta')
     let celulaFruta=document.getElementById([randomLin,randomCol])
     celulaFruta.appendChild(fruta)
     return [randomLin,randomCol]
 }
 
-let posFruta=gerarRadom()
+let posFruta;
 
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
  }
 
-class Cobra{
-    constructor(){
-        
-        this.cabeca=document.createElement('img')
-        this.cabeca.setAttribute('src',"./cobra.png")
-        this.cabeca.setAttribute('id',"cab")
-        this.corpo=[]
-        this.vel=200
+listaMelhores=document.getElementById('melhores')
+let i =0
+for (let jogador of classificacao){
+    li=document.createElement('li')
+    li.innerHTML=`${jogador.nome} - ${jogador.melhor}`
+    listaMelhores.appendChild(li)
+    if (i>4){
+        break
     }
+    i++
+}
+const cobra=new Cobra({'nome':'jogador','pontuacaoAtual':0,'melhor':0})
+function iniciar(){
+    cobra.renderCobra(posicao=[8,8], orientacao='leste', tamanho=6)
+    intervalId=setInterval(()=>{cobra.correr([...cobra.cabeca.parentElement.id.split(',')].map(Number), orientacao='leste')},cobra.vel)
+}
 
-    renderCobra(posicao, orientacao, tamanho){
+
+botaoIniciar=document.getElementById('start')
+botaoIniciar.addEventListener('click',()=>{
+    document.getElementById('start').disabled=true
+    let nome = document.getElementById('idName').value
+    document.getElementById('idName').value=''
+    document.getElementById('scoreAtual').innerHTML=0
+    document.getElementById('idName').disabled=true
+    divPontuacao=document.getElementById('pontuacaoAtual')
+    divPontuacao.children[0].innerHTML=`Pontuação do ${nome}`
+    divPontuacao.setAttribute('style','visibility:visible')
+    posFruta=gerarRadom()
+    if ((classificacao.filter((obj)=>obj.nome.toLowerCase()===nome.toLowerCase())).length===0){
+        const jogador=new User(nome,0,0)
+        cobra.user=jogador
+        classificacao.push(jogador)
+    }else{
+        cobra.user=classificacao.filter((obj)=>obj.nome===nome)[0]
+    }
     
-        let celulaCabeca=document.getElementById(posicao)
-        celulaCabeca.appendChild(this.cabeca)
-        if (orientacao==='leste'){
-            this.cabeca.setAttribute('style','transform:rotate(270deg)')
-        } else if (orientacao==='oeste'){
-            this.cabeca.setAttribute('style','transform:rotate(90deg)')
-        } else if(orientacao==='norte'){
-            this.cabeca.setAttribute('style','transform:rotate(180deg)')
-        } 
-        for (let el = 1; el < tamanho ; el++){
-            if (orientacao==='leste'){
-                let bola=document.createElement('img')
-                //bola.setAttribute('style','width:80%;border-radius: 50%;')
-                bola.setAttribute('src',"./fundo_cobra.png")
-                bola.setAttribute('id',el)
-                bola.setAttribute('class','bola')
-                this.corpo.push(bola)
-                let celulaBola=document.getElementById([posicao[0],posicao[1]-el])
-                celulaBola.appendChild(bola)
-            } else if (orientacao==='oeste'){
-                let bola=document.createElement('img')
-                //bola.setAttribute('style','width:80%;border-radius: 50%;')
-                bola.setAttribute('src',"./fundo_cobra.png")
-                bola.setAttribute('id',el)
-                bola.setAttribute('class','bola')
-                this.corpo.push(bola)
-                let celulaBola=document.getElementById([posicao[0],posicao[1]+el])
-                celulaBola.appendChild(bola)
-            } else if(orientacao==='norte'){
-                
-                let bola=document.createElement('img')
-                //bola.setAttribute('style','width:80%;border-radius: 50%;')
-                bola.setAttribute('src',"./fundo_cobra.png")
-                bola.setAttribute('id',el)
-                bola.setAttribute('class','bola')
-                this.corpo.push(bola)
-                let celulaBola=document.getElementById([posicao[0]+el,posicao[1]])
-                celulaBola.appendChild(bola)
-            }  else{
-                let bola=document.createElement('img')
-                //bola.setAttribute('style','width:80%;border-radius: 50%;')
-                bola.setAttribute('src',"./fundo_cobra.png")
-                bola.setAttribute('id',el)
-                bola.setAttribute('class','bola')
-                this.corpo.push(bola)
-                let celulaBola=document.getElementById([posicao[0]-el,posicao[1]])
-                celulaBola.appendChild(bola)
-            }
-        }
-        
-        
-    }
-    async mudarDirecao(posicaoConversao,orientacaoAntiga,orientacao){
-        await sleep(this.vel)
-        if(orientacaoAntiga==='leste' ){
-            if(orientacao==='norte'){
 
-                 this.cabeca.setAttribute('style','transform:rotate(180deg)')
-                
-                 clearInterval(intervalId)
-                 intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)
-            } else{
+    classificacao.sort((a,b)=>{
+        if(a.melhor>b.melhor) return -1;
+        if(a.melhor<b.melhor) return 1;
+        if(a.melhor===b.melhor) return 0;
+    })
+   
 
-                 this.cabeca.setAttribute('style','')
-                
-                 clearInterval(intervalId)
-                 intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)
-            }
+    iniciar()
+})
 
-        }else if(orientacaoAntiga==='oeste'){
-            if(orientacao==='norte'){
-                this.cabeca.setAttribute('style','transform:rotate(180deg)')
-                
-                clearInterval(intervalId)
-                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)
 
-            }else{
-                this.cabeca.setAttribute('style','')
-                let tamanho=this.corpo.length
-                clearInterval(intervalId)
-                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)
-
-            }
-        } else if(orientacaoAntiga==='norte'){
-            if(orientacao==='leste'){
-
-                this.cabeca.setAttribute('style','transform:rotate(270deg)')
-                clearInterval(intervalId)
-                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)
-            }else{
-
-                this.cabeca.setAttribute('style','transform:rotate(90deg)')
-                clearInterval(intervalId)
-                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)
-            }
-
-        } else if(orientacaoAntiga==='sul'){
-            if(orientacao==='leste'){
-                this.cabeca.setAttribute('style','transform:rotate(270deg)')
-                clearInterval(intervalId)
-                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)
-
-            }else {
-                this.cabeca.setAttribute('style','transform:rotate(90deg)')
-                
-                clearInterval(intervalId)
-                intervalId=setInterval(()=>{this.correr(posicaoConversao, orientacao=orientacao, orientacaoAntiga=orientacaoAntiga)},this.vel)  
-                
-                
-            }
-        }
-
-    }
-    correr(posicaoConversao, orientacao, orientacaoAntiga){
-        try {
-            let posicaoAntiga=[...cobra.cabeca.parentElement.id.split(',')].map(Number)
-        } catch (error) {
-            console.log(error)
-            this.morrer()           
-        }
-        let posicaoAntiga=[...cobra.cabeca.parentElement.id.split(',')].map(Number)
-        if (orientacao==='leste'){
-            let novo=0
-            if (posicaoAntiga[1]+1>=cl){
-                novo=0
-            }else{
-                novo=posicaoAntiga[1]+1
-            }
-            let celulaCabeca=document.getElementById([posicaoAntiga[0],novo])
-            document.getElementById(posicaoAntiga).innerHTML=''
-            celulaCabeca.appendChild(this.cabeca)
-            
-            
-        } else if (orientacao==='oeste'){
-            let novo=0
-            if (posicaoAntiga[1]-1<0){
-                novo=cl-1
-            }else{
-                novo=posicaoAntiga[1]-1
-            }
-            let celulaCabeca=document.getElementById([posicaoAntiga[0],novo])
-            document.getElementById(posicaoAntiga).innerHTML=''
-            celulaCabeca.appendChild(this.cabeca)
-            
-        } else if(orientacao==='norte'){
-            let novo=0
-            if (posicaoAntiga[0]-1<0){
-                novo=ln-1
-            }else{
-                novo=posicaoAntiga[0]-1
-            }
-            let celulaCabeca=document.getElementById([novo,posicaoAntiga[1]])
-            document.getElementById(posicaoAntiga).innerHTML=''
-            celulaCabeca.appendChild(this.cabeca)
-            
-        }  else{
-            let novo=0
-            if (posicaoAntiga[0]+1>ln-1){
-                novo=0
-            }else{
-                novo=posicaoAntiga[0]+1
-            }
-            let celulaCabeca=document.getElementById([novo,posicaoAntiga[1]])
-            document.getElementById(posicaoAntiga).innerHTML=''
-            celulaCabeca.appendChild(this.cabeca)
-              
-        }
-        let comeu=false
-        if (JSON.stringify([...cobra.cabeca.parentElement.id.split(',')].map(Number))===JSON.stringify(posFruta)){
-            comeu=true
-            this.comer()
-        }
-        let posicaoGomoAnterior=[]
-        let styleAnterior=''
-        for (let gomo of this.corpo){
-            let posicaoGomo=[...gomo.parentElement.id.split(',')].map(Number)
-            let style=gomo.getAttribute('style')
-            if(this.corpo.indexOf(gomo)===0){
-                
-                document.getElementById(posicaoGomo).innerHTML=''
-                let celulaGomo=document.getElementById(posicaoAntiga)
-                celulaGomo.appendChild(gomo) 
-                
-            }else{
-                document.getElementById(posicaoGomo).innerHTML=''
-                let celulaGomo=document.getElementById(posicaoGomoAnterior)
-                celulaGomo.appendChild(gomo)
-            }
-            posicaoGomoAnterior=posicaoGomo
-            styleAnterior=style
-            if (this.corpo.indexOf(gomo)===this.corpo.length-1 && comeu){
-                this.crescer(posicaoGomo)
-            }
-        }          
-        }    
-    async comer(){
-        await sleep(10)
-        posFruta=gerarRadom()
-        if (document.getElementById('fruta')===null){
-            this.comer()
-        }
-        totalScore+=10
-        this.vel=this.vel*0.95
-        document.getElementById('scoreAtual').innerHTML=totalScore
-        
-    }
-    async crescer(posicao){
-        await sleep(10)
-        let bola=document.createElement('img')
-        bola.setAttribute('src',"./fundo_cobra.png")
-        bola.setAttribute('class','bola')
-        this.corpo.push(bola)
-        let celulaBola=document.getElementById(posicao)
-        celulaBola.appendChild(bola)
-
-    }
-    morrer(){
-        clearInterval(intervalId)
-        location.reload()
+inputNome=document.getElementById('idName')
+inputNome.onkeyup=(event)=>{
+    if (document.getElementById('idName').value===''){
+        botaoIniciar.disabled=true
+    }else{
+        botaoIniciar.disabled=false
     }
 }
 
-const cobra= new Cobra()
-cobra.renderCobra(posicao=[8,8], orientacao='leste', tamanho=6,first=true)
-intervalId=setInterval(()=>{cobra.correr([...cobra.cabeca.parentElement.id.split(',')].map(Number), orientacao='leste', orientacaoAntiga='leste')},cobra.vel)
+
+
+
 window.addEventListener('keydown',(event)=>{
+    
     let orientacaoAntiga=cobra.cabeca.getAttribute('style')
     if (orientacaoAntiga==='transform:rotate(270deg)'){
         orientacaoAntiga='leste'
@@ -309,21 +188,26 @@ window.addEventListener('keydown',(event)=>{
     }else {
         return
     }
-    if (orientacaoAntiga==='leste' && (orientacao==='norte' || orientacao==='sul')){
-        let posicaoConversao=[...cobra.cabeca.parentElement.id.split(',')].map(Number)
-        cobra.mudarDirecao(posicaoConversao,orientacaoAntiga,orientacao)
-    } else if (orientacaoAntiga==='oeste' && (orientacao==='norte' || orientacao==='sul')){
-        let posicaoConversao=[...cobra.cabeca.parentElement.id.split(',')].map(Number)
-        cobra.mudarDirecao(posicaoConversao,orientacaoAntiga,orientacao)
-    }
-    else if (orientacaoAntiga==='norte' && (orientacao==='leste' || orientacao==='oeste')){
-        let posicaoConversao=[...cobra.cabeca.parentElement.id.split(',')].map(Number)
-        cobra.mudarDirecao(posicaoConversao,orientacaoAntiga,orientacao)
-    }else if (orientacaoAntiga==='sul' && (orientacao==='leste' || orientacao==='oeste')){
-        let posicaoConversao=[...cobra.cabeca.parentElement.id.split(',')].map(Number)
-        cobra.mudarDirecao(posicaoConversao,orientacaoAntiga,orientacao)
-    }else{
-        return
+    try {
+        
+        if (orientacaoAntiga==='leste' && (orientacao==='norte' || orientacao==='sul')){
+            let posicaoConversao=[...cobra.cabeca.parentElement.id.split(',')].map(Number)
+            cobra.mudarDirecao(posicaoConversao,orientacaoAntiga,orientacao)
+        } else if (orientacaoAntiga==='oeste' && (orientacao==='norte' || orientacao==='sul')){
+            let posicaoConversao=[...cobra.cabeca.parentElement.id.split(',')].map(Number)
+            cobra.mudarDirecao(posicaoConversao,orientacaoAntiga,orientacao)
+        }
+        else if (orientacaoAntiga==='norte' && (orientacao==='leste' || orientacao==='oeste')){
+            let posicaoConversao=[...cobra.cabeca.parentElement.id.split(',')].map(Number)
+            cobra.mudarDirecao(posicaoConversao,orientacaoAntiga,orientacao)
+        }else if (orientacaoAntiga==='sul' && (orientacao==='leste' || orientacao==='oeste')){
+            let posicaoConversao=[...cobra.cabeca.parentElement.id.split(',')].map(Number)
+            cobra.mudarDirecao(posicaoConversao,orientacaoAntiga,orientacao)
+        }else{
+            return
+        }
+    } catch (error) {
+        
     }
 
 })

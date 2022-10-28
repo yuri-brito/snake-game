@@ -12,9 +12,8 @@
 </head>
 <body>
     <img class="demo-bg" src="./back1.png" alt="">
-    <button id="botaoInicial">Iniciar Jogo</button>
-    <main style="visibility:hidden;">
-        <section id="score" >
+    <main>
+        <section id="score" style="visibility:hidden;">
             <form action="">
                 <label for="idName">Nome do jogador</label>
                 <input id="idName" type="text">
@@ -23,17 +22,15 @@
                 </button>
             </form>
             <article>
-                <div id="melhoresJogadores">
-                    <h4>Melhores jogadores</h4>
-                    <ol id="melhores"></ol>
-                </div>
-                <div id="pontuacaoAtual">
+                <h4>Melhores jogadores</h4>
+                
+                <div id="pontuacaoAtual" style="visibility:hidden;">
                     <p>Pontuação Atual</p>
                     <p id="scoreAtual">0</p>
                 </div>
             </article>
         </section>
-        <table cellspacing="0">
+        <table cellspacing="0" style="visibility:hidden;">
         </table>
 
     </main>
