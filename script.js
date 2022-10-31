@@ -31,9 +31,9 @@ labelNome.setAttribute('style',`font-size:${width()*0.02}px`)
 inputNome=document.getElementById('idName')
 inputNome.setAttribute('style',`width:${width()*0.15}px;height: ${height()*0.1}px;font-size:${width()*0.015}px;border-radius: ${width()*0.01}px;border-width:${width()*0.003}px;`)
 form=document.getElementsByTagName('form')[0]
-form.setAttribute('style',`border:${width()*0.005}px solid green;border-radius: ${width()*0.01}px;padding:${width()*0.03}px;width:${width()*0.18}px;height:${height()*0.18}px`)
+form.setAttribute('style',`border:${width()*0.005}px solid greenyellow;border-radius: ${width()*0.01}px;padding:${width()*0.03}px;width:${width()*0.18}px;height:${height()*0.18}px`)
 article=document.getElementsByTagName('article')[0]
-article.setAttribute('style',`border:${width()*0.005}px solid green;border-radius: ${width()*0.01}px;padding:${width()*0.01}px;width:${width()*0.22}px;height:${height()*0.45}px`)
+article.setAttribute('style',`border:${width()*0.005}px solid greenyellow;border-radius: ${width()*0.01}px;padding:${width()*0.01}px;width:${width()*0.22}px;height:${height()*0.45}px`)
 melhoresJogadore=document.getElementById('melhoresJogadores')
 h4=document.getElementsByTagName('h4')[0]
 h4.setAttribute('style',`font-size:${width()*0.021}px`)
