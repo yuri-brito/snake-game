@@ -12,26 +12,67 @@ function width(){
         || 0;
  }
  
+ //tela inicial
 background=document.getElementsByClassName('demo-bg')[0]
 background.setAttribute('style',`width:${width()}px;height: ${height()}px`)
 body=document.getElementsByTagName('body')[0]
 body.setAttribute('style',`width:${width()}px;height: ${height()}px`)
 
 botaoPrimeiro=document.getElementById('botaoInicial')
-botaoPrimeiro.setAttribute('style',`width:${width()*0.2}px;height:${Math.floor(height()*0.15)}px;left:${width()*0.4}px;top:${height()*0.1}px;font-size: ${width()*0.02}px;border-radius: ${width()*0.01}px;border-width:${width()*0.005}px;`)
-//width:${width()*0.2}px;height:${Math.floor(height()*0.15)}px
+botaoPrimeiro.setAttribute('style',`width:${width()*0.2}px;height:${Math.floor(height()*0.15)}px;left:${width()*0.4}px;top:${height()*0.1}px;font-size: ${width()*0.02}px;border-radius: ${width()*0.01}px;border-width:${width()*0.005}px;font-size:${width()*0.02}px;`)
+
+
+
+//segunda tela
+botaoStart=document.getElementById('start')
+botaoStart.setAttribute('style',`width:${width()*0.12}px;height: ${height()*0.07}px;font-size:${width()*0.015}px;border-radius: ${width()*0.01}px;border-width:${width()*0.003}px;padding:${width()*0.005}px`)
+labelNome=document.getElementsByTagName('label')[0]
+labelNome.setAttribute('style',`font-size:${width()*0.02}px`)
+inputNome=document.getElementById('idName')
+inputNome.setAttribute('style',`width:${width()*0.15}px;height: ${height()*0.1}px;font-size:${width()*0.015}px;border-radius: ${width()*0.01}px;border-width:${width()*0.003}px;`)
+form=document.getElementsByTagName('form')[0]
+form.setAttribute('style',`border:${width()*0.005}px solid green;border-radius: ${width()*0.01}px;padding:${width()*0.03}px;width:${width()*0.18}px;height:${height()*0.18}px`)
+article=document.getElementsByTagName('article')[0]
+article.setAttribute('style',`border:${width()*0.005}px solid green;border-radius: ${width()*0.01}px;padding:${width()*0.03}px;width:${width()*0.18}px;height:${height()*0.4}px`)
+melhoresJogadore=document.getElementById('melhoresJogadores')
+h4=document.getElementsByTagName('h4')[0]
+h4.setAttribute('style',`font-size:${width()*0.021}px`)
+ol=document.getElementsByTagName('ol')[0]
+ol.setAttribute('style',`font-size:${width()*0.015}px;width:${width()*0.18}px;border-width:${width()*0.002}px;border-radius: ${width()*0.01}px`)
+pontuacaoAtual=document.getElementById('pontuacaoAtual')
+pontuacaoAtual.setAttribute('style',`font-size:${width()*0.015}px`)
+pAtual=document.getElementById('pAtual')
+scoreAtual=document.getElementById('scoreAtual')
+pAtual.setAttribute('style',`font-size:${width()*0.015}px`)
+scoreAtual.setAttribute('style',`font-size:${width()*0.015}px`)
+tabela=document.getElementsByTagName('table')[0]
+tabela.setAttribute('style',`border-width:${width()*0.005}px;border-radius: ${width()*0.01}px`)
+snake=document.getElementById('snakeArena')
+snake.setAttribute('style',`font-size:${width()*0.021}px;text-align: center`)
 
 window.onresize=(event)=>{
     if (botaoPrimeiro.getAttribute('style')==='visibility:hidden;'){
 
+        //segunda tela
         body.setAttribute('style',`width:${width()}px;height: ${height()}px`)
         background.setAttribute('style',`width:${width()}px;height: ${height()}px;opacity:0.1;position: absolute; z-index: 0;`)
-        //botaoPrimeiro.setAttribute('style','font-size:')
+        botaoStart.setAttribute('style',`width:${width()*0.12}px;height: ${height()*0.07}px;font-size:${width()*0.015}px;border-radius: ${width()*0.01}px;border-width:${width()*0.003}px;padding:${width()*0.005}px`)
+        labelNome.setAttribute('style',`font-size:${width()*0.02}px`)
+        inputNome.setAttribute('style',`width:${width()*0.15}px;height: ${height()*0.1}px;font-size:${width()*0.015}px;border-radius: ${width()*0.01}px;border-width:${width()*0.003}px;`)
+        form.setAttribute('style',`border:${width()*0.005}px solid green;border-radius: ${width()*0.01}px;padding:${width()*0.03}px;width:${width()*0.18}px;height:${height()*0.18}px`)
+        article.setAttribute('style',`border:${width()*0.005}px solid green;border-radius: ${width()*0.01}px;padding:${width()*0.03}px;width:${width()*0.18}px;height:${height()*0.4}px`)
+        h4.setAttribute('style',`font-size:${width()*0.021}px`)
+        ol.setAttribute('style',`font-size:${width()*0.015}px;width:${width()*0.18}px;border-width:${width()*0.002}px;border-radius: ${width()*0.01}px`)
+        //pontuacaoAtual.setAttribute('style',`font-size:${width()*0.015}px`)
+        pAtual.setAttribute('style',`font-size:${width()*0.015}px`)
+        scoreAtual.setAttribute('style',`font-size:${width()*0.015}px`)
+        tabela.setAttribute('style',`border-width:${width()*0.005}px;border-radius: ${width()*0.01}px`)
+        snake.setAttribute('style',`font-size:${width()*0.021}px;text-align: center`)
+        
        
         
     }else{
-        console.log(width())
-        console.log(height())
+       // tela inicial
         body.setAttribute('style',`width:${width()}px;height: ${height()}px`)
         background.setAttribute('style',`width:${width()}px;height: ${height()}px`)
         botaoPrimeiro.setAttribute('style',`width:${width()*0.2}px;height:${Math.floor(height()*0.15)}px;left:${width()*0.4}px;top:${height()*0.1}px;font-size:${width()*0.02}px;border-radius: ${width()*0.01}px;border-width:${width()*0.005}px;`)
