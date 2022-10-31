@@ -191,8 +191,8 @@ botaoIniciar.addEventListener('click',()=>{
         const jogador=new User(nome,0,0)
         cobra.user=jogador
         classificacao.push(jogador)
-    }else{
-        cobra.user=classificacao.filter((obj)=>obj.nome===nome)[0]
+    }else{ 
+        cobra.user=classificacao.filter((obj)=>obj.nome.toLowerCase()===nome.toLowerCase())[0]
     }
     
 

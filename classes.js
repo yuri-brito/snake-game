@@ -255,6 +255,7 @@ class Cobra{
             this.user.melhor=this.user.pontuacaoAtual
         }
         this.user.pontuacaoAtual=0
+        
         classificacao.sort((a,b)=>{
             if(a.melhor>b.melhor) return -1;
             if(a.melhor<b.melhor) return 1;
