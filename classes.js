@@ -1,3 +1,8 @@
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+ }
+
+
 class Cobra{
     constructor(user){
         this.user=user
@@ -5,7 +10,7 @@ class Cobra{
         this.cabeca.setAttribute('src',"./cobra.png")
         this.cabeca.setAttribute('id',"cab")
         this.corpo=[]
-        this.vel=100
+        this.vel=150
     }
 
     renderCobra(posicao, orientacao, tamanho){
@@ -211,11 +216,12 @@ class Cobra{
     async comer(){
         await sleep(10)
         posFruta=gerarRadom()
-        if (document.getElementById('fruta')===null){
+        while (document.getElementById('fruta')===null){
+            console.log('não gerou fruta')
             this.comer()
         }
         totalScore+=10
-        this.vel=this.vel*0.95
+        this.vel=this.vel*0.98
         this.user.pontuacaoAtual+=10
         document.getElementById('scoreAtual').innerHTML=this.user.pontuacaoAtual
         
@@ -253,7 +259,7 @@ class Cobra{
             i++
         }   
         this.corpo=[]
-        this.vel=100
+        this.vel=150
         
         
         classificacao.sort((a,b)=>{

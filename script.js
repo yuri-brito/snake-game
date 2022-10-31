@@ -16,20 +16,26 @@ background=document.getElementsByClassName('demo-bg')[0]
 background.setAttribute('style',`width:${width()}px;height: ${height()}px`)
 body=document.getElementsByTagName('body')[0]
 body.setAttribute('style',`width:${width()}px;height: ${height()}px`)
-//headerPrimeiro=document.getElementsByTagName('header')[0]
+
 botaoPrimeiro=document.getElementById('botaoInicial')
-botaoPrimeiro.setAttribute('style',`width:${width()*0.2}px;height:${Math.floor(height()*0.15)}px;left:${width()*0.4}px;top:${height()*0.1}px`)
+botaoPrimeiro.setAttribute('style',`width:${width()*0.2}px;height:${Math.floor(height()*0.15)}px;left:${width()*0.4}px;top:${height()*0.1}px;font-size: ${width()*0.02}px;border-radius: ${width()*0.01}px;border-width:${width()*0.005}px;`)
+//width:${width()*0.2}px;height:${Math.floor(height()*0.15)}px
 
 window.onresize=(event)=>{
     if (botaoPrimeiro.getAttribute('style')==='visibility:hidden;'){
 
         body.setAttribute('style',`width:${width()}px;height: ${height()}px`)
         background.setAttribute('style',`width:${width()}px;height: ${height()}px;opacity:0.1;position: absolute; z-index: 0;`)
+        //botaoPrimeiro.setAttribute('style','font-size:')
+       
         
     }else{
+        console.log(width())
+        console.log(height())
         body.setAttribute('style',`width:${width()}px;height: ${height()}px`)
         background.setAttribute('style',`width:${width()}px;height: ${height()}px`)
-        botaoPrimeiro.setAttribute('style',`width:${width()*0.2}px;height:${Math.floor(height()*0.2)}px;left:${width()*0.4}px;top:${height()*0.1}px`)
+        botaoPrimeiro.setAttribute('style',`width:${width()*0.2}px;height:${Math.floor(height()*0.15)}px;left:${width()*0.4}px;top:${height()*0.1}px;font-size:${width()*0.02}px;border-radius: ${width()*0.01}px;border-width:${width()*0.005}px;`)
+        
     }
     
 }
@@ -64,15 +70,15 @@ const frutas=[
 let totalScore=0
 
 const table=document.getElementsByTagName('table')[0]
-const ln=40
-const cl=80
+const ln=32
+const cl=50
 for (let lin = 0; lin < ln ; lin++){
     let linha=document.createElement('tr')
     for (let col = 0; col < cl ; col ++ ){
         let celula=document.createElement('td')
         celula.setAttribute('id',`${lin},${col}`)
-        celula.setAttribute('width',`1.25%`)
-        celula.setAttribute('height',`2.5%`)
+        celula.setAttribute('width',`2%`)
+        celula.setAttribute('height',`3.125%`)
         if ((lin+col)%2===0){
             //celula.setAttribute('style',`background:rgb(255, 255, 255)`)
         }else{
@@ -89,7 +95,7 @@ function gerarRadom(){
     let randomLin=Math.floor(Math.random()*(ln-1))
     let fruta=document.createElement('img')
     fruta.setAttribute('src',frutas[randomFruit].arquivo)
-    fruta.setAttribute('style','display: block;margin: auto;position: absolute;top: 0; bottom: 0;left: 0;right: 0;width: 200%;z-index: 2; ')
+    fruta.setAttribute('style','display: block;margin: auto;position: absolute;top: 0; bottom: 0;left: 0;right: 0;width: 140%;z-index: 2; ')
     fruta.setAttribute('id','fruta')
     let celulaFruta=document.getElementById([randomLin,randomCol])
     celulaFruta.appendChild(fruta)
@@ -98,10 +104,6 @@ function gerarRadom(){
 
 let posFruta;
 
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
- }
 
 listaMelhores=document.getElementById('melhores')
 let i =0
