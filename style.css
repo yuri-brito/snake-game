@@ -85,7 +85,7 @@ table{
 }
 
 td { 
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin: 0;
     padding: 0;
     position: relative;
@@ -228,22 +228,6 @@ li{
     to {opacity: 0;}
 }
 
-@media (max-width:600px){
-    main{
-        flex-direction: column;
-    
-    }
-    #score{
-        flex-direction: row;
-        justify-content: space-around;
-        width:60%;
-    }
-    #snakeArena{
-        font-weight: bold;
-        color: rgb(244, 252, 20);
-    }
-
-}
 
 
 
