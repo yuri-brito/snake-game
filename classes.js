@@ -1,6 +1,19 @@
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
  }
+function width(){
+return window.innerWidth 
+    || document.documentElement.clientWidth 
+    || document.body.clientWidth 
+    || 0;
+}
+
+function height(){
+return window.innerHeight 
+    || document.documentElement.clientHeight 
+    || document.body.clientHeight 
+    || 0;
+}
 
 
 class Cobra{
@@ -271,10 +284,10 @@ class Cobra{
         let lista=document.getElementById('melhores')
         lista.innerHTML=''
         let max=0
-        if (classificacao.length<8){
+        if (classificacao.length<10){
             max=classificacao.length
         }else{
-            max=7
+            max=9
         }
         for (let i = 0; i<max;i++){
             let li=document.createElement('li')
@@ -282,6 +295,15 @@ class Cobra{
             lista.appendChild(li)
         }
 
+        divPontuacao=document.getElementById('pontuacaoAtual')
+        divPontuacao.setAttribute('style','display:none')
+
+        botaoStart=document.getElementById('start')
+        botaoStart.setAttribute('style',`width:${width()*0.12}px;height: ${height()*0.07}px;font-size:${width()*0.015}px;border-radius: ${width()*0.01}px;border-width:${width()*0.003}px;padding:${width()*0.005}px`)
+        labelNome=document.getElementsByTagName('label')[0]
+        labelNome.setAttribute('style',`font-size:${width()*0.02}px`)
+        inputNome=document.getElementById('idName')
+        inputNome.setAttribute('style',`width:${width()*0.15}px;height: ${height()*0.1}px;font-size:${width()*0.015}px;border-radius: ${width()*0.01}px;border-width:${width()*0.003}px;`)
         
         
     }

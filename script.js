@@ -33,36 +33,36 @@ inputNome.setAttribute('style',`width:${width()*0.15}px;height: ${height()*0.1}p
 form=document.getElementsByTagName('form')[0]
 form.setAttribute('style',`border:${width()*0.005}px solid green;border-radius: ${width()*0.01}px;padding:${width()*0.03}px;width:${width()*0.18}px;height:${height()*0.18}px`)
 article=document.getElementsByTagName('article')[0]
-article.setAttribute('style',`border:${width()*0.005}px solid green;border-radius: ${width()*0.01}px;padding:${width()*0.03}px;width:${width()*0.18}px;height:${height()*0.4}px`)
+article.setAttribute('style',`border:${width()*0.005}px solid green;border-radius: ${width()*0.01}px;padding:${width()*0.01}px;width:${width()*0.22}px;height:${height()*0.45}px`)
 melhoresJogadore=document.getElementById('melhoresJogadores')
 h4=document.getElementsByTagName('h4')[0]
 h4.setAttribute('style',`font-size:${width()*0.021}px`)
 ol=document.getElementsByTagName('ol')[0]
-ol.setAttribute('style',`font-size:${width()*0.015}px;width:${width()*0.18}px;border-width:${width()*0.002}px;border-radius: ${width()*0.01}px`)
+ol.setAttribute('style',`font-size:${width()*0.015}px;width:${width()*0.15}px;border-width:${width()*0.002}px;border-radius: ${width()*0.01}px`)
 pontuacaoAtual=document.getElementById('pontuacaoAtual')
-pontuacaoAtual.setAttribute('style',`font-size:${width()*0.015}px`)
+pontuacaoAtual.setAttribute('style',`font-size:${width()*0.02}px`)
 pAtual=document.getElementById('pAtual')
 scoreAtual=document.getElementById('scoreAtual')
-pAtual.setAttribute('style',`font-size:${width()*0.015}px`)
-scoreAtual.setAttribute('style',`font-size:${width()*0.015}px`)
+pAtual.setAttribute('style',`font-size:${width()*0.02}px`)
+scoreAtual.setAttribute('style',`font-size:${width()*0.02}px`)
 tabela=document.getElementsByTagName('table')[0]
 tabela.setAttribute('style',`border-width:${width()*0.005}px;border-radius: ${width()*0.01}px`)
 snake=document.getElementById('snakeArena')
 snake.setAttribute('style',`font-size:${width()*0.021}px;text-align: center`)
 
 window.onresize=(event)=>{
-    if (botaoPrimeiro.getAttribute('style')==='visibility:hidden;'){
+    if (botaoPrimeiro.getAttribute('style')==='display:none;'){
 
         //segunda tela
         body.setAttribute('style',`width:${width()}px;height: ${height()}px`)
-        background.setAttribute('style',`width:${width()}px;height: ${height()}px;opacity:0.1;position: absolute; z-index: 0;`)
+        background.setAttribute('style',`width:${width()}px;height: ${height()}px;opacity:1;position: absolute; z-index: 0;`)
         botaoStart.setAttribute('style',`width:${width()*0.12}px;height: ${height()*0.07}px;font-size:${width()*0.015}px;border-radius: ${width()*0.01}px;border-width:${width()*0.003}px;padding:${width()*0.005}px`)
         labelNome.setAttribute('style',`font-size:${width()*0.02}px`)
         inputNome.setAttribute('style',`width:${width()*0.15}px;height: ${height()*0.1}px;font-size:${width()*0.015}px;border-radius: ${width()*0.01}px;border-width:${width()*0.003}px;`)
         form.setAttribute('style',`border:${width()*0.005}px solid green;border-radius: ${width()*0.01}px;padding:${width()*0.03}px;width:${width()*0.18}px;height:${height()*0.18}px`)
-        article.setAttribute('style',`border:${width()*0.005}px solid green;border-radius: ${width()*0.01}px;padding:${width()*0.03}px;width:${width()*0.18}px;height:${height()*0.4}px`)
+        article.setAttribute('style',`border:${width()*0.005}px solid green;border-radius: ${width()*0.01}px;padding:${width()*0.01}px;width:${width()*0.22}px;height:${height()*0.45}px`)
         h4.setAttribute('style',`font-size:${width()*0.021}px`)
-        ol.setAttribute('style',`font-size:${width()*0.015}px;width:${width()*0.18}px;border-width:${width()*0.002}px;border-radius: ${width()*0.01}px`)
+        ol.setAttribute('style',`font-size:${width()*0.015}px;width:${width()*0.15}px;border-width:${width()*0.002}px;border-radius: ${width()*0.01}px`)
         //pontuacaoAtual.setAttribute('style',`font-size:${width()*0.015}px`)
         pAtual.setAttribute('style',`font-size:${width()*0.015}px`)
         scoreAtual.setAttribute('style',`font-size:${width()*0.015}px`)
@@ -82,10 +82,10 @@ window.onresize=(event)=>{
 }
 
 botaoPrimeiro.addEventListener('click',(event)=>{
-    event.currentTarget.setAttribute('style',"visibility:hidden;")
-    document.getElementsByTagName('main')[0].setAttribute('style',"visibility:visible;")
-    body.setAttribute('style',`width:${width()}px;height: ${height()}px`)
-    background.setAttribute('style',`width:${width()}px;height: ${height()}px;opacity:0.1;position: absolute; z-index: 0;`)
+    event.currentTarget.setAttribute('style',"display:none;")
+    document.getElementsByTagName('main')[0].setAttribute('style',"display:flex;")
+    body.setAttribute('style',`width:${width()}px;height: ${height()}px;`)
+    background.setAttribute('style',`width:${width()}px;height: ${height()}px;opacity:1;position: absolute; z-index: 0;`)
 
 })
 
@@ -139,6 +139,12 @@ function gerarRadom(){
     fruta.setAttribute('style','display: block;margin: auto;position: absolute;top: 0; bottom: 0;left: 0;right: 0;width: 140%;z-index: 2; ')
     fruta.setAttribute('id','fruta')
     let celulaFruta=document.getElementById([randomLin,randomCol])
+    console.log(celulaFruta.innerHTML)
+     while (celulaFruta.innerHTML!==''){
+         randomLin=Math.floor(Math.random()*(ln-1))
+         randomCol=Math.floor(Math.random()*(cl-1))
+         celulaFruta=document.getElementById([randomLin,randomCol])
+     }
     celulaFruta.appendChild(fruta)
     return [randomLin,randomCol]
 }
@@ -159,21 +165,27 @@ for (let jogador of classificacao){
 }
 const cobra=new Cobra({'nome':'jogador','pontuacaoAtual':0,'melhor':0})
 function iniciar(){
+    
     cobra.renderCobra(posicao=[8,8], orientacao='leste', tamanho=6)
+    
     intervalId=setInterval(()=>{cobra.correr([...cobra.cabeca.parentElement.id.split(',')].map(Number), orientacao='leste')},cobra.vel)
+    console.log('yuri')
 }
 
 
 botaoIniciar=document.getElementById('start')
 botaoIniciar.addEventListener('click',()=>{
-    document.getElementById('start').disabled=true
-    let nome = document.getElementById('idName').value
-    document.getElementById('idName').value=''
-    document.getElementById('scoreAtual').innerHTML=0
-    document.getElementById('idName').disabled=true
+    
+    botaoStart.disabled=true
+    botaoStart.setAttribute('style','display:none')
+    let nome = inputNome.value
+    inputNome.value=''
+    inputNome.setAttribute('style','display:none')
+    labelNome.setAttribute('style','display:none')
+    scoreAtual.innerHTML=0
     divPontuacao=document.getElementById('pontuacaoAtual')
-    divPontuacao.children[0].innerHTML=`Pontuação do ${nome}`
-    divPontuacao.setAttribute('style','visibility:visible')
+    pAtual.innerHTML=`Pontuação do ${nome}`
+    divPontuacao.setAttribute('style','display:flex')
     posFruta=gerarRadom()
     if ((classificacao.filter((obj)=>obj.nome.toLowerCase()===nome.toLowerCase())).length===0){
         const jogador=new User(nome,0,0)
@@ -190,7 +202,7 @@ botaoIniciar.addEventListener('click',()=>{
         if(a.melhor===b.melhor) return 0;
     })
    
-
+    
     iniciar()
 })
 
@@ -203,9 +215,6 @@ inputNome.onkeyup=(event)=>{
         botaoIniciar.disabled=false
     }
 }
-
-
-
 
 window.addEventListener('keydown',(event)=>{
     
