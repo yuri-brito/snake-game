@@ -226,13 +226,8 @@ class Cobra{
             }
         }          
         }    
-    async comer(){
-        await sleep(10)
+    comer(){
         posFruta=gerarRadom()
-        while (document.getElementById('fruta')===null){
-            console.log('não gerou fruta')
-            this.comer()
-        }
         totalScore+=10
         this.vel=this.vel*0.98
         this.user.pontuacaoAtual+=10

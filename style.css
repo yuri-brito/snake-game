@@ -210,7 +210,7 @@ ol{
 #snakeArena{
     font-weight: bold;
     color: greenyellow;
-     text-shadow: 2px 2px 4px rgb(0,0,0); 
+    text-shadow: 2px 2px 4px rgb(0,0,0); 
     /* -webkit-text-stroke: 0.3px black; */
 }
 label{
