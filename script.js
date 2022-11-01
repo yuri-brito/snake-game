@@ -142,7 +142,7 @@ function gerarRadom(){
     fruta.setAttribute('style','display: block;margin: auto;position: absolute;top: 0; bottom: 0;left: 0;right: 0;width: 140%;z-index: 2; ')
     fruta.setAttribute('id','fruta')
     let celulaFruta=document.getElementById([randomLin,randomCol])
-    console.log(celulaFruta.innerHTML)
+    
      while (celulaFruta.innerHTML!==''){
          randomLin=Math.floor(Math.random()*(ln-1))
          randomCol=Math.floor(Math.random()*(cl-1))
@@ -172,13 +172,12 @@ function iniciar(){
     cobra.renderCobra(posicao=[8,8], orientacao='leste', tamanho=6)
     
     intervalId=setInterval(()=>{cobra.correr([...cobra.cabeca.parentElement.id.split(',')].map(Number), orientacao='leste')},cobra.vel)
-    console.log('yuri')
+    
 }
 
 
 botaoIniciar=document.getElementById('start')
 botaoIniciar.addEventListener('click',()=>{
-    
     botaoStart.disabled=true
     botaoStart.setAttribute('style','display:none')
     let nome = inputNome.value

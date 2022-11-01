@@ -32,7 +32,6 @@ function process_touchend(ev){
 }
 function botaoStartTouch(ev){
     let e = new MouseEvent('click');
-    //console.log(e);
     ev.target.dispatchEvent(e);
 }
 
