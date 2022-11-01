@@ -1,3 +1,6 @@
+
+
+
 function width(){
     return window.innerWidth 
         || document.documentElement.clientWidth 
