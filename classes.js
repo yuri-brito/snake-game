@@ -44,6 +44,7 @@ class Cobra{
                 bola.setAttribute('src',"./fundo_cobra.png")
                 bola.setAttribute('id',el)
                 bola.setAttribute('class','bola')
+                //bola.setAttribute('style','width:10%;')
                 this.corpo.push(bola)
                 let celulaBola=document.getElementById([posicao[0],posicao[1]-el])
                 celulaBola.appendChild(bola)

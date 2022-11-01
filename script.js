@@ -142,7 +142,7 @@ const frutas=[
 let totalScore=0
 
 const table=document.getElementsByTagName('table')[0]
-const ln=32
+const ln=25
 const cl=50
 for (let lin = 0; lin < ln ; lin++){
     let linha=document.createElement('tr')
@@ -150,7 +150,7 @@ for (let lin = 0; lin < ln ; lin++){
         let celula=document.createElement('td')
         celula.setAttribute('id',`${lin},${col}`)
         celula.setAttribute('width',`2%`)
-        celula.setAttribute('height',`3.125%`)
+        celula.setAttribute('height',`4%`)
         if ((lin+col)%2===0){
             //celula.setAttribute('style',`background:rgb(255, 255, 255)`)
         }else{
@@ -167,7 +167,11 @@ function gerarRadom(){
     let randomLin=Math.floor(Math.random()*(ln-1))
     let fruta=document.createElement('img')
     fruta.setAttribute('src',frutas[randomFruit].arquivo)
-    fruta.setAttribute('style','display: block;margin: auto;position: absolute;top: 0; bottom: 0;left: 0;right: 0;width: 140%;z-index: 2; ')
+    if (randomFruit===4||randomFruit===5||randomFruit===9){
+        fruta.setAttribute('style','display: block;margin: auto;position: absolute;top: 0; bottom: 0;left: 0;right: 0;width: 150%;z-index: 2; ')
+    }else{
+        fruta.setAttribute('style','display: block;margin: auto;position: absolute;top: 0; bottom: 0;left: 0;right: 0;width: 120%;z-index: 2; ')
+    }
     fruta.setAttribute('id','fruta')
     let celulaFruta=document.getElementById([randomLin,randomCol])
     
