@@ -18,10 +18,8 @@ function width(){
 
 if(width()<700){
     window.alert('O jogo será melhor aproveitado se o celular estiver na horizontal')
-        
+    location.reload() 
 }  
-
-
 
 background=document.getElementsByClassName('demo-bg')[0]
 background.setAttribute('style',`width:${width()}px;height: ${height()}px`)
