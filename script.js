@@ -149,8 +149,8 @@ for (let lin = 0; lin < ln ; lin++){
     for (let col = 0; col < cl ; col ++ ){
         let celula=document.createElement('td')
         celula.setAttribute('id',`${lin},${col}`)
-        celula.setAttribute('width',`2%`)
-        celula.setAttribute('height',`4%`)
+        //celula.setAttribute('width',`2%`)
+        //celula.setAttribute('height',`4%`)
         if ((lin+col)%2===0){
             //celula.setAttribute('style',`background:rgb(255, 255, 255)`)
         }else{
