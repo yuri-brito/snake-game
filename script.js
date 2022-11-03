@@ -146,6 +146,7 @@ const ln=25
 const cl=50
 for (let lin = 0; lin < ln ; lin++){
     let linha=document.createElement('tr')
+    linha.setAttribute('height',`4%`)
     for (let col = 0; col < cl ; col ++ ){
         let celula=document.createElement('td')
         celula.setAttribute('id',`${lin},${col}`)
