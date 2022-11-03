@@ -210,7 +210,7 @@ class Cobra{
             
             let style=gomo.getAttribute('style')
             if(this.corpo.indexOf(gomo)===0){
-                
+                         
                 document.getElementById(posicaoGomo).innerHTML=''
                 let celulaGomo=document.getElementById(posicaoAntiga)
                 celulaGomo.appendChild(gomo) 
