@@ -90,10 +90,10 @@ td {
     /* border: 1px solid black; */
     table-layout: fixed;
     width: 2%;
-    max-height: 4%;
+    max-height: fit-content;
     height: 4%;
     margin: 0;
-    padding: 0;
+    padding: 0;  
     position: relative;  
   }
 
