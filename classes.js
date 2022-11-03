@@ -40,17 +40,14 @@ class Cobra{
         for (let el = 1; el < tamanho ; el++){
             if (orientacao==='leste'){
                 let bola=document.createElement('img')
-                //bola.setAttribute('style','width:80%;border-radius: 50%;')
                 bola.setAttribute('src',"./fundo_cobra.png")
                 bola.setAttribute('id',el)
                 bola.setAttribute('class','bola')
-                //bola.setAttribute('style','width:10%;')
                 this.corpo.push(bola)
                 let celulaBola=document.getElementById([posicao[0],posicao[1]-el])
                 celulaBola.appendChild(bola)
             } else if (orientacao==='oeste'){
                 let bola=document.createElement('img')
-                //bola.setAttribute('style','width:80%;border-radius: 50%;')
                 bola.setAttribute('src',"./fundo_cobra.png")
                 bola.setAttribute('id',el)
                 bola.setAttribute('class','bola')
@@ -60,7 +57,6 @@ class Cobra{
             } else if(orientacao==='norte'){
                 
                 let bola=document.createElement('img')
-                //bola.setAttribute('style','width:80%;border-radius: 50%;')
                 bola.setAttribute('src',"./fundo_cobra.png")
                 bola.setAttribute('id',el)
                 bola.setAttribute('class','bola')
@@ -69,7 +65,6 @@ class Cobra{
                 celulaBola.appendChild(bola)
             }  else{
                 let bola=document.createElement('img')
-                //bola.setAttribute('style','width:80%;border-radius: 50%;')
                 bola.setAttribute('src',"./fundo_cobra.png")
                 bola.setAttribute('id',el)
                 bola.setAttribute('class','bola')
@@ -202,13 +197,11 @@ class Cobra{
             this.comer()
         }
         let posicaoGomoAnterior=[]
-        let styleAnterior=''
         
         for (let gomo of this.corpo){
             
             let posicaoGomo=[...gomo.parentElement.id.split(',')].map(Number)
             
-            let style=gomo.getAttribute('style')
             if(this.corpo.indexOf(gomo)===0){
                          
                 document.getElementById(posicaoGomo).innerHTML=''
@@ -221,7 +214,6 @@ class Cobra{
                 celulaGomo.appendChild(gomo)
             }
             posicaoGomoAnterior=posicaoGomo
-            styleAnterior=style
             if (this.corpo.indexOf(gomo)===this.corpo.length-1 && comeu){
                 this.crescer(posicaoGomo)
             }
@@ -258,9 +250,7 @@ class Cobra{
             if(a.melhor===b.melhor) return 0;
         })
         document.getElementById('idName').disabled=false
-        document.getElementById('fruta').parentElement.innerHTML=''
-        // this.cabeca.parentElement.innerHTML=''
-        
+        document.getElementById('fruta').parentElement.innerHTML=''        
         let i=0
         for (let gomo of this.corpo){
         

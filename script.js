@@ -153,9 +153,9 @@ for (let lin = 0; lin < ln ; lin++){
         celula.setAttribute('width',`2%`)
         celula.setAttribute('height',`4%`)
         if ((lin+col)%2===0){
-            //celula.setAttribute('style',`background:rgb(255, 255, 255)`)
+            //celula.setAttribute('style',`background:rgba(255, 255, 255,0.9)`)
         }else{
-            //celula.setAttribute('style',`background:rgb(224, 249, 224);`)
+            //celula.setAttribute('style',`background:rgba(255, 255, 255,0.5);`)
         }
         linha.appendChild(celula)
     }
